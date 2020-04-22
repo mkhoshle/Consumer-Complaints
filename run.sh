@@ -1,5 +1,8 @@
 #!/bin/bash
 #
+echo "Installing the required packages"
+pip install -r requirements.txt
+
 echo "First we check the code to see if it pass the tests" 
 python src/test_complaint_analysis.py -v
 
