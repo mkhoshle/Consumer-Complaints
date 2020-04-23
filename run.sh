@@ -4,4 +4,4 @@
 #python src/test_complaint_analysis.py -v
 
 echo "Running the main code to produce the result!"
-python src/run.py --ipath 'input/complaints.csv' --opath 'output/report.csv'
+python3.8 src/run.py --ipath 'input/complaints.csv' --opath 'output/report.csv'
