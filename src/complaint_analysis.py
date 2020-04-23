@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-import pandas as pd
+import csv
 import os
+from collections import defaultdict, Counter
 
 class complaint_analysis:
     """A class for performing all the calculations and delivering output in the desired format.
@@ -14,32 +15,32 @@ class complaint_analysis:
         self.opath = opath          # Path to the output file
         self._report = []           # Output
 
-    def percentage_complaint(self,df,index,i):
-        """Return the highest percentage of complaints directed at a single company."""
-        out = ((len(group),len(group)/len(df)*100) for ind, group in df.groupby('company'))
-        max_ = max(out, key= lambda x: x[1])
-
-        self._report[i].append(max_[0])
-        self._report[i].append(round(max_[1]))
-
     @property
     def getReport(self):
-         self._report = pd.DataFrame(self._report).sort_values(by=[0])
-         self._report = self._report.reset_index(drop=True)
          return self._report
 
     def setReport(self,data):
         """Return the report DataFrame."""
-        for i,(index,group) in enumerate(data.groupby(['year','product'])):
-            self._report.append([index[1],int(index[0]),len(group)])
-            self.percentage_complaint(group,index,i)
+        yp = Counter(data[('year', 'product')])
+        ypc = Counter(data[(('year', 'product'), 'company')])
+
+        for k1 in yp.keys():
+            comp_per_company = []
+            for k2 in ypc.keys():
+                if k2[0]==k1:
+                    comp_per_company.append(ypc[k2])
+            max_ = max(comp_per_company)
+            self._report.append([k1[1],k1[0],yp[k1],max_,round(max_/yp[k1]*100)])
+
+        self._report = sorted(self._report, key = lambda x: (x[0],x[1]))
 
     @property
     def write_data(self):
         """Write the reported output into csv file."""
         if self.opath != None:
-            if not self._report:
+            if self._report is None:
                 raise ValueError('No output to write')
-            if not os.path.isfile(self.opath):
-                raise FileNotFoundError('The file does not exist')
-            pd.DataFrame(self._report).to_csv(self.opath,sep=',',index=False,header=False)
+
+            with open(self.opath, "w", newline="") as f:
+                writer = csv.writer(f,delimiter=',')
+                writer.writerows(self._report)

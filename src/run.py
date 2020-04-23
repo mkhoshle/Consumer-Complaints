@@ -10,9 +10,7 @@ args = vars(parser.parse_args())
 
 print('Ready to pre-process the data')
 pp = preprocessing(args['ipath'])
-pp.input_data
-pp.make_lowercase()
-data = pp.extract_year
+data = pp.input_data
 
 print('Pre-processed data is ready')
 ca = complaint_analysis(args['opath'])

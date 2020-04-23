@@ -1,56 +1,41 @@
 #!/usr/bin/env python
-import pandas as pd
+import csv
 import os
+from collections import defaultdict, Counter
 
 class preprocessing:
     """A class for preprocessing input data and converting it to the desired format.
 
     Attributes:
         ipath: Path to the input file
-        input: Pandas DataFrame representing input data read from file
-        _data: Pandas DataFrame representing pre-processed data
+        input: representing input data read from file
     """
 
     def __init__(self,ipath=None):
-        self.ipath = ipath                     # Path to the input file
-        self.input = None                      # Raw Data
-        self._data = pd.DataFrame()            # Pre-processed data
+        self.ipath = ipath                          # Path to the input file
+        self.input = defaultdict(list)              # Raw Data
+
+    def store_input(self,row):
+        year = str.lower(row[0]).split('-')[0]
+        product = str.lower(row[1]); company = str.lower(row[7])
+        self.input['year'].append(year)
+        self.input['product'].append(product)
+        self.input['company'].append(company)
+        self.input[('year','product')].append((year,product))
+        self.input[(('year','product'),'company')].append(((year,product),company))
 
     @property
     def input_data(self):
-        """Load input data from file and store it into a Pandas DataFrame."""
+        """Load input data from file and Convert all strings to lower case."""
         if self.ipath != None:
             if not os.path.isfile(self.ipath):
                 raise FileNotFoundError('The file does not exist')
-            self.input = pd.read_csv(self.ipath,error_bad_lines=False,engine='python',
-                                     encoding='utf-8')
 
-        if self.input.empty:
+            with open(self.ipath, 'r') as file:
+                reader = csv.reader(file, delimiter=',')
+                [self.store_input(row) for i,row in enumerate(reader) if i>0]
+
+        if not self.input:
             raise ValueError('No data to load')
 
-    def make_lowercase(self):
-        """Convert all strings to lower case."""
-        cols = self.input.columns
-        for x in cols:
-            try:
-                self._data[x] = self.input[x].str.lower()
-            except Exception as AttributeError:
-                pass
-        self._data.columns = list(map(str.lower,self._data.columns))
-
-    @staticmethod
-    def split(x):
-        """Split the column date received into three separate columns
-        of Year, Month and Day"""
-        return x.split('-')
-
-    @property
-    def extract_year(self):
-        """Return the final pre-processed DataFrame in desired format."""
-        Date_received = pd.DataFrame(map(self.split,self._data['date received']),
-                                     columns=['year','month','day'])
-        cols = list(self._data.columns)
-        cols.remove('date received')
-        self._data = pd.concat([Date_received,self._data[cols]],axis=1)
-
-        return self._data
+        return self.input
