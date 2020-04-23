@@ -1,2 +1,27 @@
 # Consumer-Complaints
 Insight Data-engineering Code Challenge
+
+# My Approach
+My approach to this problem include two parts:
+1) Pre-processing where I prepare prepare the data for processing. (`preprocessing.py`) 
+2) Consumer complaint analysis where I analyze data to deliver them in the final format. (`complaint_analysis.py`)
+
+## Pre-processing
+In this part the required columns including `company`, `product`, and `Date received` are stored into a dictionary.
+`Date received` columns are splitted into three parts including `year`, `month`, and `day`. But only the `year` part is used. 
+I also stored a separate column for (`year`, `product`) and ((`year`, `product`),`company`). This allows counting the number of complaints for each combination of (`year`, `product`) and the number of complaints per company for each year and product ((`year`, `product`),`company`).
+
+## Consumer complaint analysis
+In the analysis the count for each combination of (`year`, `product`) and ((`year`, `product`),`company`) are calculated. Using the calculated amounts the final report is formed which has the following columns:
+`product`,`year`,`number of companies receiving a complaint`,`company with max complaints`, `The highest percentage of complaints directed at a single company.`
+
+# Testsuite
+The testsuites coded in `test_complaint_analysis.py` are designed to check the input format and make sure the input is in the desired format. In addition, the tests check the output format and make sure it matches the desired format.
+
+
+**Note**:
+- The code is tested using the provided link by `Insight` and it passes the tests.
+- The directory structure is in the desired format.
+- Python3.8 is used for this code.
+- The lines in the output file should be sorted by product (alphabetically) and year (ascending) as requested.
+- No Pandas or any other external libraries that must be installed using 'pip' is used in these codes.
