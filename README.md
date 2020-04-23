@@ -20,6 +20,7 @@ The testsuites coded in `test_complaint_analysis.py` are designed to check the i
 
 
 **Note**:
+- The classes `complaint_analysis` and `preprocessing` are called inside the `run.py` file and this file will later be run from `run.sh` file.
 - The code is tested using the provided link by `Insight` and it passes the tests.
 - The directory structure is in the desired format.
 - Python3.8 is used for this code.
