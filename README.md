@@ -18,6 +18,11 @@ In the analysis the count for each combination of (`year`, `product`) and ((`yea
 # Testsuite
 The testsuites coded in `test_complaint_analysis.py` are designed to check the input format and make sure the input is in the desired format. In addition, the tests check the output format and make sure it matches the desired format.
 
+# Instructions for running the code
+Here are the steps needed to be taken to run instructions:
+1) run  `./run.sh` from the command line.
+2) If you want to use any other input data than the one in the `input` directory.
+3) `python3.8 src/run.py --ipath 'input/complaints.csv' --opath 'output/report.csv'` will be run inside `run.sh` file. So in case you are using a different name or folder for the input and output files, make sure you update this line and provide the correct input.
 
 **Note**:
 - The classes `complaint_analysis` and `preprocessing` are called inside the `run.py` file and this file will later be run from `run.sh` file.
