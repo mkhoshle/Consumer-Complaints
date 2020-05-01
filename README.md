@@ -25,7 +25,7 @@ Here are the steps needed to be taken to run instructions:
 2) `python3.8 src/run.py --ipath 'input/complaints.csv' --opath 'output/report.csv'` will be run inside `run.sh` file. 
 3) execute `./run.sh` from the command line to run all the codes and produce the desired output.
 
-**Note**:
+# Notes:
 - The classes `complaint_analysis` and `preprocessing` are called inside the `run.py` file and this file will later be run from `run.sh` file.
 - The code is tested using the provided link by `Insight` and it passes the tests.
 - The directory structure is in the desired format.
