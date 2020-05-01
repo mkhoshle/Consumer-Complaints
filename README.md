@@ -21,9 +21,9 @@ All the requested test data are located inside `insight_testsuite`.
 
 # Instructions for running the code
 Here are the steps needed to be taken to run instructions:
-1) If you want to use any other input data than the one in the `input` directory.
-2) `python3.8 src/run.py --ipath 'input/complaints.csv' --opath 'output/report.csv'` will be run inside `run.sh` file. So in case you are using a different name or folder for the input and output files, make sure you update this line and provide the correct input.
-3) run `./run.sh` from the command line.
+1) If you want to use any other input data than the one in the `input` directory make sure you provide the correct path in `run.sh` that requires the user to provide the path to the input and output files. The default are 'input/complaints.csv' for input file and 'output/report.csv' for output file.
+2) `python3.8 src/run.py --ipath 'input/complaints.csv' --opath 'output/report.csv'` will be run inside `run.sh` file. 
+3) execute `./run.sh` from the command line to run all the codes and produce the desired output.
 
 **Note**:
 - The classes `complaint_analysis` and `preprocessing` are called inside the `run.py` file and this file will later be run from `run.sh` file.
