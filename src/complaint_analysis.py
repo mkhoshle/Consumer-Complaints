@@ -21,18 +21,19 @@ class complaint_analysis:
 
     def setReport(self,data):
         """Return the report DataFrame."""
-        yp = Counter(data[('year', 'product')])
-        ypc = Counter(data[(('year', 'product'), 'company')])
+        if data:
+            yp = Counter(data[('year', 'product')])
+            ypc = Counter(data[(('year', 'product'), 'company')])
 
-        for k1 in yp.keys():
-            comp_per_company = []
-            for k2 in ypc.keys():
-                if k2[0]==k1:
-                    comp_per_company.append(ypc[k2])
-            max_ = max(comp_per_company)
-            self._report.append([k1[1],k1[0],yp[k1],max_,round(max_/yp[k1]*100)])
+            for k1 in yp.keys():
+                comp_per_company = []
+                for k2 in ypc.keys():
+                    if k2[0]==k1:
+                        comp_per_company.append(ypc[k2])
+                max_ = max(comp_per_company)
+                self._report.append([k1[1],k1[0],yp[k1],max_,round(max_/yp[k1]*100)])
 
-        self._report = sorted(self._report, key = lambda x: (x[0],x[1]))
+            self._report = sorted(self._report, key = lambda x: (x[0],x[1]))
 
     @property
     def write_data(self):

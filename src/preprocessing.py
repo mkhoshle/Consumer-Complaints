@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import csv
 import os
+import warnings
 from collections import defaultdict, Counter
 
 class preprocessing:
@@ -18,11 +19,11 @@ class preprocessing:
     def store_input(self,row):
         year = str.lower(row[0]).split('-')[0]
         product = str.lower(row[1]); company = str.lower(row[7])
-        self.input['year'].append(year)
-        self.input['product'].append(product)
-        self.input['company'].append(company)
-        self.input[('year','product')].append((year,product))
-        self.input[(('year','product'),'company')].append(((year,product),company))
+        if row[0] and row[1] and row[7]:
+            self.input[('year','product')].append((year,product))
+            self.input[(('year','product'),'company')].append(((year,product),company))
+        else:
+            warnings.warn('Data needs to be cleaned',RuntimeWarning)
 
     @property
     def input_data(self):
