@@ -16,7 +16,8 @@ In the analysis the count for each combination of (`year`, `product`) and ((`yea
 `product`,`year`,`number of companies receiving a complaint`,`company with max complaints`, `The highest percentage of complaints directed at a single company.`
 
 # Testsuite
-The testsuites coded in `test_complaint_analysis.py` are designed to check the input format and make sure the input is in the desired format. In addition, the tests check the output format and make sure it matches the desired format.
+The testsuite's codes in `testDir` are designed to check the input format and make sure the input is in the desired format. In addition, the tests check the output format and make sure it matches the desired format. 
+All the requested test data are located inside `insight_testsuite`.
 
 # Instructions for running the code
 Here are the steps needed to be taken to run instructions:
