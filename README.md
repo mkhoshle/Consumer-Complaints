@@ -32,3 +32,4 @@ Here are the steps needed to be taken to run instructions:
 - Python3.8 is used for this code.
 - The lines in the output file should be sorted by product (alphabetically) and year (ascending) as requested.
 - No Pandas or any other external libraries that must be installed using 'pip' is used in these codes.
+- The output data (`report.csv`) obtained from the input data provided [here](http://files.consumerfinance.gov/ccdb/complaints.csv.zip) is stored inside the `output` directory.
